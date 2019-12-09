@@ -1,5 +1,5 @@
 {
-  "name": "learn-vue-cli",
+  "name": "jd-cli",
   "version": "0.0.5",
   "description": "",
   "main": "index.js",
@@ -7,9 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "learn": "./bin/learn.js"
+    "jdCli": "./bin/jdCli.js"
   },
-  "keywords": [],
+  "keywords": [
+    "jd",
+    "脚手架"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {

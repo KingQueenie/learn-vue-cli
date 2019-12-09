@@ -1,49 +1,32 @@
-/*
- * @Author: luoquanquan
- * @Date: 2018-11-15 16:57:36
- * @Last Modified by: luoquanquan
- * @Last Modified time: 2018-11-16 21:06:09
- */
 
 const download = require('download-git-repo');
 const request = require('./request');
-const { orgName } = require('../../config');
+const { baseURL, orgName, groupId, privateToken } = require('../../config');
 
 class Git {
   constructor() {
+  	this.baseURL = baseURL
     this.orgName = orgName;
+    this.groupId = groupId;
+    this.privateToken = privateToken.split(' ').reverse().join('')
   }
 
   /**
    * 获取项目组中的项目模板列表
    */
   getProjectList() {
-    return request(`/orgs/${this.orgName}/repos`);
+		return request(`/api/v4/groups/${this.groupId}?private_token=${this.privateToken}`)
   }
 
   /**
-   * 获取项目模板的版本列表
-   * @param {String} repo 项目名称
-   */
-  getProjectVersions(repo) {
-    return request(`/repos/${this.orgName}/${repo}/tags`);
-  }
-
-  /**
-   * 下载 github 项目
+   * 下载 git项目
    * @param {Object} param 项目信息 项目名称 项目版本 本地开发目录
    */
-  // downloadProject({ repo, version, repoPath }) {
-  //   return new Promise((resolve, reject) => {
-		// 	download(`${this.orgName}/${repo}#${version}`, repoPath, (err) => {
-		// 		if (err) reject(err);
-		// 		resolve(true);
-		// 	});
-		// });
-  // }
 	downloadProject({ repo, repoPath }) {
 		return new Promise((resolve, reject) => {
-			download(`${this.orgName}/${repo}`, repoPath, (err) => {
+			download(`direct:${this.baseURL}/${this.orgName}/${repo}.git`, repoPath, {
+				clone: true
+			}, (err) => {
 				if (err) reject(err);
 				resolve(true);
 			});

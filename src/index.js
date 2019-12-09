@@ -26,7 +26,7 @@ if (existsSync(resolve(__dirname, `command/${todo}.js`))) {
 } else {
   console.log(
     `
-      你输入了未知指令, 小哥哥我已经受不了挂了...
+      您输入了未知指令, 请检查后再输入...
     `.red,
   );
   process.exit(-1);
